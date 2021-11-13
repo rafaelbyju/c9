@@ -1,26 +1,36 @@
-var a = 0;
+var sea,ship;
+var seaImg,shipImg;
+
+function preload(){
+  seaImg = loadImage("sea.png");
+  shipImg1 = loadAnimation("ship-1.png","ship-1.png","ship-1.png","ship-1.png", "ship-2.png","ship-2.png","ship-2.png","ship-2.png");
+}
+
+function setup(){
+  createCanvas(400,400);
+
+  // Movendo o fundo
+  sea=createSprite(400,200);
+  sea.addImage(seaImg);
+  sea.velocityX = -2;
+  sea.scale=0.3;
+
+  
+  ship = createSprite(130,200,30,30);
+  ship.addAnimation("movingShip",shipImg1);
+  ship.scale =0.25;
+  
+}
 
 function draw() {
-  background(World.mouseX/400 * 255,World.mouseY/400 * 255,a);
+  background(0);
+  sea.velocityX = -3;
+
   
-  if (keyDown("UP_ARROW")){
-    a = a + 5;
+  //código para redefinir o fundo
+  if(sea.x < 0){
+    sea.x = sea.width/8;
   }
-  
-  if (keyDown("DOWN_ARROW")){
-    a = a - 5;
-  }
-  
-  if (a > 255) {
-    a = 255;
-  }
-  
-  if (a < 0) {
-    a = 0;
-  }
-  
-  text(floor(World.mouseX/400 * 255),200,180);
-  text(floor(World.mouseY/400 * 255),200,200);
-  text(a,200,220);
-  text("use as setas de cima e baixo para mudar o terceiro valor",50,50);
+    
+  drawSprites();
 }
